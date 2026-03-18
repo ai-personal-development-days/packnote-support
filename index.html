@@ -15,74 +15,175 @@
       --text-primary: #1C1917;
       --text-secondary: #78716C;
       --border: #E8E0D5;
+      --dark: #1C1917;
+      --dark-2: #2D2320;
     }
+
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Yu Gothic', sans-serif;
       background-color: var(--base);
       color: var(--text-primary);
       line-height: 1.7;
+      overflow-x: hidden;
     }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
 
     /* ── HERO ── */
     .hero {
       background: linear-gradient(160deg, #1C1917 0%, #3D2B1F 100%);
       color: white;
       text-align: center;
-      padding: 80px 20px 60px;
+      padding: 100px 20px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(184,150,110,0.15) 0%, transparent 70%);
+      pointer-events: none;
     }
 
     .hero .app-name {
-      font-size: 52px;
+      font-size: clamp(44px, 8vw, 72px);
       font-weight: 800;
-      letter-spacing: -1px;
-      margin-bottom: 12px;
+      letter-spacing: -2px;
+      margin-bottom: 16px;
+      animation: fadeDown 0.8s ease both;
     }
 
     .hero .app-name span { color: var(--accent); }
 
     .hero .tagline {
-      font-size: 18px;
-      color: rgba(255,255,255,0.7);
+      font-size: clamp(16px, 2.5vw, 20px);
+      color: rgba(255,255,255,0.75);
       margin-bottom: 8px;
+      animation: fadeDown 0.8s 0.15s ease both;
     }
 
     .hero .sub-tagline {
-      font-size: 15px;
-      color: rgba(255,255,255,0.45);
-      margin-bottom: 40px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 48px;
+      animation: fadeDown 0.8s 0.25s ease both;
     }
 
-    .badge {
+    .hero-badge {
       display: inline-block;
       background: var(--accent);
       color: white;
       font-size: 16px;
       font-weight: 700;
-      padding: 14px 36px;
+      padding: 16px 40px;
       border-radius: 50px;
       text-decoration: none;
       letter-spacing: 0.5px;
+      animation: fadeDown 0.8s 0.35s ease both;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 8px 30px rgba(184,150,110,0.4);
+    }
+
+    .hero-badge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(184,150,110,0.5);
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.3);
+      font-size: 12px;
+      letter-spacing: 2px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
     }
 
     /* ── SCREENSHOTS ── */
     .screenshots-section {
-      padding: 60px 20px;
+      padding: 80px 20px;
+      text-align: center;
       overflow: hidden;
     }
 
-    .screenshots-section h2 {
-      text-align: center;
-      font-size: 26px;
+    .section-label {
+      font-size: 12px;
       font-weight: 700;
-      margin-bottom: 40px;
+      letter-spacing: 3px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 800;
+      margin-bottom: 48px;
+      letter-spacing: -0.5px;
     }
 
     .screenshots-scroll {
       display: flex;
-      gap: 24px;
+      gap: 28px;
       overflow-x: auto;
-      padding: 10px 20px 20px;
+      padding: 20px 40px 30px;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
       justify-content: center;
@@ -100,18 +201,26 @@
       position: relative;
       width: 200px;
       background: #1C1917;
-      border-radius: 36px;
+      border-radius: 38px;
       padding: 10px;
       box-shadow:
-        0 0 0 1px #3D3530,
-        0 20px 60px rgba(0,0,0,0.3);
+        0 0 0 1.5px #3D3530,
+        0 30px 80px rgba(0,0,0,0.25);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .phone-wrap:hover {
+      transform: translateY(-8px);
+      box-shadow:
+        0 0 0 1.5px #3D3530,
+        0 40px 100px rgba(0,0,0,0.35);
     }
 
     .phone-wrap::before {
       content: '';
       display: block;
-      width: 60px;
-      height: 6px;
+      width: 56px;
+      height: 5px;
       background: #3D3530;
       border-radius: 3px;
       margin: 4px auto 8px;
@@ -119,7 +228,7 @@
 
     .phone-wrap img {
       width: 100%;
-      border-radius: 26px;
+      border-radius: 28px;
       display: block;
     }
 
@@ -127,56 +236,127 @@
       text-align: center;
       font-size: 13px;
       color: var(--text-secondary);
-      margin-top: 14px;
+      margin-top: 16px;
       font-weight: 600;
     }
 
     /* ── FEATURES ── */
     .features {
-      background: var(--card);
-      padding: 60px 20px;
+      background: var(--dark);
+      padding: 80px 20px;
+      color: white;
     }
 
-    .features h2 {
-      text-align: center;
-      font-size: 26px;
-      font-weight: 700;
-      margin-bottom: 40px;
-    }
+    .features .section-title { color: white; }
 
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 20px;
-      max-width: 800px;
+      max-width: 860px;
       margin: 0 auto;
     }
 
     .feature-card {
-      background: var(--base);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
       border-radius: 16px;
-      padding: 24px;
+      padding: 28px;
+      transition: background 0.3s, transform 0.3s;
     }
 
-    .feature-icon {
-      font-size: 32px;
-      margin-bottom: 12px;
+    .feature-card:hover {
+      background: rgba(255,255,255,0.09);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon-wrap {
+      width: 44px;
+      height: 44px;
+      background: var(--accent-light);
+      border-radius: 12px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feature-icon-wrap svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     .feature-card h3 {
       font-size: 16px;
       font-weight: 700;
       margin-bottom: 8px;
+      color: white;
     }
 
     .feature-card p {
       font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.6;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
     }
 
-    /* ── SUPPORT & PRIVACY ── */
+    /* ── HIGHLIGHT ── */
+    .highlight {
+      padding: 80px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .highlight-row {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      margin-bottom: 80px;
+    }
+
+    .highlight-row:last-child { margin-bottom: 0; }
+    .highlight-row.reverse { flex-direction: row-reverse; }
+
+    .highlight-phone {
+      flex-shrink: 0;
+      width: 180px;
+    }
+
+    .highlight-phone .phone-wrap { width: 180px; }
+
+    .highlight-text { flex: 1; }
+
+    .highlight-text .section-label { text-align: left; }
+
+    .highlight-text h3 {
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .highlight-text p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    @media (max-width: 600px) {
+      .highlight-row,
+      .highlight-row.reverse {
+        flex-direction: column;
+        text-align: center;
+      }
+      .highlight-text .section-label { text-align: center; }
+    }
+
+    /* ── SUPPORT ── */
     .support {
+      background: var(--base);
       padding: 60px 20px;
       max-width: 680px;
       margin: 0 auto;
@@ -198,22 +378,8 @@
       border-bottom: 2px solid var(--accent-light);
     }
 
-    .support p {
-      font-size: 15px;
-      margin-bottom: 12px;
-    }
-
+    .support p { font-size: 15px; margin-bottom: 12px; }
     .support p:last-child { margin-bottom: 0; }
-
-    .support ul {
-      padding-left: 20px;
-      margin-bottom: 12px;
-    }
-
-    .support ul li {
-      font-size: 15px;
-      margin-bottom: 8px;
-    }
 
     .contact-link {
       color: var(--accent);
@@ -222,15 +388,15 @@
     }
 
     .contact-link:hover { text-decoration: underline; }
-
     .small { font-size: 13px; color: var(--text-secondary); }
 
+    /* ── FOOTER ── */
     footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.35);
       text-align: center;
-      color: var(--text-secondary);
       font-size: 13px;
       padding: 32px 20px;
-      border-top: 1px solid var(--border);
     }
   </style>
 </head>
@@ -241,38 +407,40 @@
     <div class="app-name">Pack<span>Note</span></div>
     <p class="tagline">旅の荷物準備を、もっとスマートに。</p>
     <p class="sub-tagline">過去の忘れ物から学んで、使うほど賢くなるパッキングアプリ</p>
-    <a class="badge" href="#">App Store で入手（近日公開）</a>
+    <a class="hero-badge" href="#">App Store で入手（近日公開）</a>
+    <div class="hero-scroll-hint">SCROLL</div>
   </div>
 
   <!-- SCREENSHOTS -->
   <div class="screenshots-section">
-    <h2>アプリ画面</h2>
+    <p class="section-label reveal">App Screenshots</p>
+    <h2 class="section-title reveal delay-1">すべての画面が、シンプルに。</h2>
     <div class="screenshots-scroll">
-      <div class="phone-frame">
+      <div class="phone-frame reveal delay-1">
         <div class="phone-wrap">
           <img src="screenshots/home.png" alt="予定一覧" />
         </div>
         <p class="phone-caption">予定一覧</p>
       </div>
-      <div class="phone-frame">
+      <div class="phone-frame reveal delay-2">
         <div class="phone-wrap">
           <img src="screenshots/packing.png" alt="パッキング" />
         </div>
         <p class="phone-caption">パッキング管理</p>
       </div>
-      <div class="phone-frame">
+      <div class="phone-frame reveal delay-3">
         <div class="phone-wrap">
           <img src="screenshots/history.png" alt="記録" />
         </div>
         <p class="phone-caption">忘れ物の記録</p>
       </div>
-      <div class="phone-frame">
+      <div class="phone-frame reveal delay-4">
         <div class="phone-wrap">
           <img src="screenshots/template.png" alt="テンプレート" />
         </div>
         <p class="phone-caption">テンプレート</p>
       </div>
-      <div class="phone-frame">
+      <div class="phone-frame reveal delay-5">
         <div class="phone-wrap">
           <img src="screenshots/add_calendar.png" alt="カレンダー連携" />
         </div>
@@ -283,69 +451,129 @@
 
   <!-- FEATURES -->
   <div class="features">
-    <h2>主な機能</h2>
+    <div style="text-align:center; margin-bottom: 48px;">
+      <p class="section-label reveal" style="color: var(--accent);">Features</p>
+      <h2 class="section-title reveal delay-1">PackNoteでできること</h2>
+    </div>
     <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">🧳</div>
+
+      <div class="feature-card reveal delay-1">
+        <div class="feature-icon-wrap">
+          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+        </div>
         <h3>2段階パッキング管理</h3>
         <p>「前日までに」「当日の朝に」の2フェーズで荷物を整理。出発前の焦りをなくします。</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">📋</div>
+
+      <div class="feature-card reveal delay-2">
+        <div class="feature-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+        </div>
         <h3>テンプレート機能</h3>
         <p>旅行・出張・帰省など用途別のテンプレートを作成。次回からワンタップでリスト生成。</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">📊</div>
+
+      <div class="feature-card reveal delay-3">
+        <div class="feature-icon-wrap">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
         <h3>忘れ物の分析</h3>
         <p>過去の旅行で持って行かなかったアイテムをランキング表示。繰り返す失敗をなくします。</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔔</div>
+
+      <div class="feature-card reveal delay-1">
+        <div class="feature-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </div>
         <h3>リマインダー通知</h3>
         <p>出発前日の好きな時間に通知。パッキングを忘れることがなくなります。</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">📅</div>
+
+      <div class="feature-card reveal delay-2">
+        <div class="feature-icon-wrap">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
         <h3>カレンダー連携</h3>
-        <p>旅行の予定をカレンダーに自動追加。スケジュール管理もまとめて。</p>
+        <p>旅行の予定をカレンダーに自動追加。スケジュール管理もまとめて行えます。</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔒</div>
+
+      <div class="feature-card reveal delay-3">
+        <div class="feature-icon-wrap">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
         <h3>完全オフライン</h3>
         <p>すべてのデータはデバイス内に保存。インターネット不要で海外でも安心して使えます。</p>
       </div>
+
     </div>
+  </div>
+
+  <!-- HIGHLIGHT -->
+  <div class="highlight">
+
+    <div class="highlight-row">
+      <div class="highlight-phone reveal-left">
+        <div class="phone-wrap">
+          <img src="screenshots/packing.png" alt="パッキング画面" />
+        </div>
+      </div>
+      <div class="highlight-text reveal-right">
+        <p class="section-label">Packing</p>
+        <h3>前日と当日朝、<br>2ステップで完璧に。</h3>
+        <p>充電器やパスポートは前日に。歯ブラシや洗顔は当日の朝に。用途に合わせて2つのフェーズに分けることで、バタバタした朝でも忘れ物をなくします。</p>
+      </div>
+    </div>
+
+    <div class="highlight-row reverse">
+      <div class="highlight-phone reveal-right">
+        <div class="phone-wrap">
+          <img src="screenshots/history.png" alt="記録画面" />
+        </div>
+      </div>
+      <div class="highlight-text reveal-left">
+        <p class="section-label">History</p>
+        <h3>忘れ物の記録が、<br>次の旅行に活きる。</h3>
+        <p>旅行のたびに持って行かなかったアイテムが記録され、忘れがちなものランキングに反映。使えば使うほど、自分にあったパッキングリストが育っていきます。</p>
+      </div>
+    </div>
+
+    <div class="highlight-row">
+      <div class="highlight-phone reveal-left">
+        <div class="phone-wrap">
+          <img src="screenshots/template.png" alt="テンプレート画面" />
+        </div>
+      </div>
+      <div class="highlight-text reveal-right">
+        <p class="section-label">Template</p>
+        <h3>旅の種類に合わせた<br>テンプレートを作成。</h3>
+        <p>旅行・出張・帰省など、用途別にテンプレートを管理。泊数に応じてアイテム数が自動で調整されるので、毎回一から考える必要がありません。</p>
+      </div>
+    </div>
+
   </div>
 
   <!-- SUPPORT & PRIVACY -->
   <div class="support">
 
-    <section>
+    <section class="reveal">
       <h2>お問い合わせ</h2>
       <p>ご不明な点やご要望がございましたら、お気軽にご連絡ください。</p>
       <a class="contact-link" href="mailto:support@packnote.app">support@packnote.app</a>
     </section>
 
-    <section>
+    <section class="reveal">
       <h2>プライバシーポリシー</h2>
       <p>PackNoteは、ユーザーのプライバシーを尊重し、個人情報の保護に努めます。</p>
-
       <p><strong>収集する情報</strong></p>
       <p>PackNoteはすべてのデータをお使いのデバイス内にのみ保存します。外部サーバーへのデータ送信は一切行いません。</p>
-
       <p><strong>カレンダーへのアクセス</strong></p>
       <p>旅行の予定をカレンダーに追加する機能のために、ユーザーの許可を得た場合のみカレンダーにアクセスします。カレンダーの情報を外部に送信することはありません。</p>
-
       <p><strong>通知</strong></p>
       <p>出発前日にパッキングを促すローカル通知を送信します。通知はデバイス内でのみ処理され、外部サーバーとの通信は発生しません。</p>
-
       <p><strong>第三者への提供</strong></p>
       <p>ユーザーの情報を第三者に販売・提供・開示することは一切ありません。</p>
-
       <p><strong>お問い合わせ</strong></p>
       <p>プライバシーポリシーに関するご質問は <a class="contact-link" href="mailto:support@packnote.app">support@packnote.app</a> までご連絡ください。</p>
-
       <p class="small">最終更新日: 2026年3月18日</p>
     </section>
 
@@ -354,6 +582,20 @@
   <footer>
     <p>&copy; 2026 PackNote. All rights reserved.</p>
   </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
 
 </body>
 </html>
