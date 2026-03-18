@@ -3,135 +3,339 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PackNote - サポート</title>
+  <title>PackNote - 旅の荷物準備をスマートに</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
+    :root {
+      --base: #F8F5F0;
+      --card: #FFFFFF;
+      --accent: #B8966E;
+      --accent-light: #F0E8DC;
+      --text-primary: #1C1917;
+      --text-secondary: #78716C;
+      --border: #E8E0D5;
+    }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', sans-serif;
-      background-color: #F8F5F0;
-      color: #1C1917;
+      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Yu Gothic', sans-serif;
+      background-color: var(--base);
+      color: var(--text-primary);
       line-height: 1.7;
     }
 
-    header {
-      background-color: #FFFFFF;
-      border-bottom: 1px solid #E8E0D5;
-      padding: 24px 20px;
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(160deg, #1C1917 0%, #3D2B1F 100%);
+      color: white;
       text-align: center;
+      padding: 80px 20px 60px;
     }
 
-    header h1 {
-      font-size: 28px;
+    .hero .app-name {
+      font-size: 52px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+
+    .hero .app-name span { color: var(--accent); }
+
+    .hero .tagline {
+      font-size: 18px;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 8px;
+    }
+
+    .hero .sub-tagline {
+      font-size: 15px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 40px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      font-size: 16px;
       font-weight: 700;
-      color: #1C1917;
+      padding: 14px 36px;
+      border-radius: 50px;
+      text-decoration: none;
       letter-spacing: 0.5px;
     }
 
-    header p {
-      color: #78716C;
-      font-size: 15px;
-      margin-top: 4px;
+    /* ── SCREENSHOTS ── */
+    .screenshots-section {
+      padding: 60px 20px;
+      overflow: hidden;
     }
 
-    .accent { color: #B8966E; }
+    .screenshots-section h2 {
+      text-align: center;
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
 
-    main {
+    .screenshots-scroll {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      padding: 10px 20px 20px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .screenshots-scroll::-webkit-scrollbar { display: none; }
+
+    .phone-frame {
+      flex-shrink: 0;
+      width: 200px;
+    }
+
+    .phone-wrap {
+      position: relative;
+      width: 200px;
+      background: #1C1917;
+      border-radius: 36px;
+      padding: 10px;
+      box-shadow:
+        0 0 0 1px #3D3530,
+        0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .phone-wrap::before {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 6px;
+      background: #3D3530;
+      border-radius: 3px;
+      margin: 4px auto 8px;
+    }
+
+    .phone-wrap img {
+      width: 100%;
+      border-radius: 26px;
+      display: block;
+    }
+
+    .phone-caption {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 14px;
+      font-weight: 600;
+    }
+
+    /* ── FEATURES ── */
+    .features {
+      background: var(--card);
+      padding: 60px 20px;
+    }
+
+    .features h2 {
+      text-align: center;
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: var(--base);
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .feature-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .feature-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── SUPPORT & PRIVACY ── */
+    .support {
+      padding: 60px 20px;
       max-width: 680px;
       margin: 0 auto;
-      padding: 40px 20px 80px;
     }
 
-    section {
-      background: #FFFFFF;
+    .support section {
+      background: var(--card);
       border-radius: 16px;
       padding: 28px;
       margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(28, 25, 23, 0.07);
+      box-shadow: 0 2px 8px rgba(28,25,23,0.07);
     }
 
-    h2 {
+    .support h2 {
       font-size: 18px;
       font-weight: 700;
-      color: #1C1917;
       margin-bottom: 16px;
       padding-bottom: 10px;
-      border-bottom: 2px solid #F0E8DC;
+      border-bottom: 2px solid var(--accent-light);
     }
 
-    p { font-size: 15px; color: #1C1917; margin-bottom: 12px; }
-    p:last-child { margin-bottom: 0; }
+    .support p {
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
 
-    ul {
+    .support p:last-child { margin-bottom: 0; }
+
+    .support ul {
       padding-left: 20px;
       margin-bottom: 12px;
     }
 
-    ul li {
+    .support ul li {
       font-size: 15px;
-      color: #1C1917;
       margin-bottom: 8px;
     }
 
     .contact-link {
-      display: inline-block;
-      color: #B8966E;
+      color: var(--accent);
       font-weight: 600;
       text-decoration: none;
-      font-size: 15px;
     }
 
     .contact-link:hover { text-decoration: underline; }
 
+    .small { font-size: 13px; color: var(--text-secondary); }
+
     footer {
       text-align: center;
-      color: #78716C;
+      color: var(--text-secondary);
       font-size: 13px;
-      padding: 20px;
+      padding: 32px 20px;
+      border-top: 1px solid var(--border);
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Pack<span class="accent">Note</span></h1>
-    <p>旅行の荷物準備を、もっとスマートに。</p>
-  </header>
+  <!-- HERO -->
+  <div class="hero">
+    <div class="app-name">Pack<span>Note</span></div>
+    <p class="tagline">旅の荷物準備を、もっとスマートに。</p>
+    <p class="sub-tagline">過去の忘れ物から学んで、使うほど賢くなるパッキングアプリ</p>
+    <a class="badge" href="#">App Store で入手（近日公開）</a>
+  </div>
 
-  <main>
+  <!-- SCREENSHOTS -->
+  <div class="screenshots-section">
+    <h2>アプリ画面</h2>
+    <div class="screenshots-scroll">
+      <div class="phone-frame">
+        <div class="phone-wrap">
+          <img src="screenshots/home.png" alt="予定一覧" />
+        </div>
+        <p class="phone-caption">予定一覧</p>
+      </div>
+      <div class="phone-frame">
+        <div class="phone-wrap">
+          <img src="screenshots/packing.png" alt="パッキング" />
+        </div>
+        <p class="phone-caption">パッキング管理</p>
+      </div>
+      <div class="phone-frame">
+        <div class="phone-wrap">
+          <img src="screenshots/history.png" alt="記録" />
+        </div>
+        <p class="phone-caption">忘れ物の記録</p>
+      </div>
+      <div class="phone-frame">
+        <div class="phone-wrap">
+          <img src="screenshots/template.png" alt="テンプレート" />
+        </div>
+        <p class="phone-caption">テンプレート</p>
+      </div>
+      <div class="phone-frame">
+        <div class="phone-wrap">
+          <img src="screenshots/add_calendar.png" alt="カレンダー連携" />
+        </div>
+        <p class="phone-caption">カレンダー連携</p>
+      </div>
+    </div>
+  </div>
 
-    <!-- アプリ概要 -->
-    <section>
-      <h2>PackNoteについて</h2>
-      <p>PackNoteは、旅行の荷物準備をサポートするiOSアプリです。</p>
-      <p>過去の旅行で忘れがちだったアイテムを記録・分析し、使うほど精度が上がる「自分だけのパッキングリスト」を作成できます。</p>
-      <ul>
-        <li>テンプレートを使った素早いリスト作成</li>
-        <li>前日までに・当日の朝にの2段階パッキング管理</li>
-        <li>忘れがちなアイテムのランキング表示</li>
-        <li>出発前日のリマインダー通知</li>
-        <li>カレンダーへの予定追加</li>
-      </ul>
-    </section>
+  <!-- FEATURES -->
+  <div class="features">
+    <h2>主な機能</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🧳</div>
+        <h3>2段階パッキング管理</h3>
+        <p>「前日までに」「当日の朝に」の2フェーズで荷物を整理。出発前の焦りをなくします。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📋</div>
+        <h3>テンプレート機能</h3>
+        <p>旅行・出張・帰省など用途別のテンプレートを作成。次回からワンタップでリスト生成。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>忘れ物の分析</h3>
+        <p>過去の旅行で持って行かなかったアイテムをランキング表示。繰り返す失敗をなくします。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔔</div>
+        <h3>リマインダー通知</h3>
+        <p>出発前日の好きな時間に通知。パッキングを忘れることがなくなります。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📅</div>
+        <h3>カレンダー連携</h3>
+        <p>旅行の予定をカレンダーに自動追加。スケジュール管理もまとめて。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>完全オフライン</h3>
+        <p>すべてのデータはデバイス内に保存。インターネット不要で海外でも安心して使えます。</p>
+      </div>
+    </div>
+  </div>
 
-    <!-- お問い合わせ -->
+  <!-- SUPPORT & PRIVACY -->
+  <div class="support">
+
     <section>
       <h2>お問い合わせ</h2>
-      <p>ご不明な点やご要望がございましたら、以下のメールアドレスまでお気軽にお問い合わせください。</p>
+      <p>ご不明な点やご要望がございましたら、お気軽にご連絡ください。</p>
       <a class="contact-link" href="mailto:support@packnote.app">support@packnote.app</a>
     </section>
 
-    <!-- プライバシーポリシー -->
     <section>
       <h2>プライバシーポリシー</h2>
-
       <p>PackNoteは、ユーザーのプライバシーを尊重し、個人情報の保護に努めます。</p>
 
       <p><strong>収集する情報</strong></p>
       <p>PackNoteはすべてのデータをお使いのデバイス内にのみ保存します。外部サーバーへのデータ送信は一切行いません。</p>
 
       <p><strong>カレンダーへのアクセス</strong></p>
-      <p>旅行の予定をカレンダーに追加する機能のために、ユーザーの許可を得た場合のみカレンダーにアクセスします。カレンダーの情報を読み取ったり、外部に送信することはありません。</p>
+      <p>旅行の予定をカレンダーに追加する機能のために、ユーザーの許可を得た場合のみカレンダーにアクセスします。カレンダーの情報を外部に送信することはありません。</p>
 
       <p><strong>通知</strong></p>
       <p>出発前日にパッキングを促すローカル通知を送信します。通知はデバイス内でのみ処理され、外部サーバーとの通信は発生しません。</p>
@@ -142,10 +346,10 @@
       <p><strong>お問い合わせ</strong></p>
       <p>プライバシーポリシーに関するご質問は <a class="contact-link" href="mailto:support@packnote.app">support@packnote.app</a> までご連絡ください。</p>
 
-      <p style="color: #78716C; font-size: 13px; margin-top: 16px;">最終更新日: 2026年3月18日</p>
+      <p class="small">最終更新日: 2026年3月18日</p>
     </section>
 
-  </main>
+  </div>
 
   <footer>
     <p>&copy; 2026 PackNote. All rights reserved.</p>
